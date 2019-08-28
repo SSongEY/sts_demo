@@ -49,18 +49,18 @@
 		</div>
 	</nav>
 	<div class="container">
-		<form>
+		<form action="/create" method="post">
 			<div class="form-group">
 				<label for="inputEmail">Email</label> <input type="email"
-					class="form-control" id="email" placeholder="Email">
+					class="form-control" name="email" placeholder="Email">
 			</div>
 			<div class="form-group">
 				<label for="inputName">UserName</label> <input type="text"
-					class="form-control" id="name" placeholder="Name">
+					class="form-control" name="name" placeholder="Name">
 			</div>
 			<div class="form-group">
 				<label for="inputpassword">Password</label> <input type="password"
-					class="form-control" id="password">
+					class="form-control" name="password">
 			</div>
 			<button type="submit" class="btn btn-primary">Sign in</button>
 		</form>
