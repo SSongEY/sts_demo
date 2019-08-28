@@ -1,6 +1,17 @@
-package com.example.demo.web;
+package com.example.demo.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class User {
+	@Id
+	@GeneratedValue // 자동증가 (auto increments)
+	private long userId;
+	
+	@Column(nullable=false, length=20)
 	private String name;
 	private String email;
 	private String password;
