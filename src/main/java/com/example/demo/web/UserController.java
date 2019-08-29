@@ -54,13 +54,16 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public String login(String uid, String password, HttpSession session) {
-		System.out.println("in login");
 		User user = userRepository.findByUid(uid);
-		System.out.println(user);
 		if(user == null || !user.getPassword().equals(password)) 
 			return "redirect:/users/loginForm";
 		session.setAttribute("user", user);
-		System.out.println("loginSuccess");
+		return "redirect:/";
+	}
+	
+	@GetMapping("/logout/{uid}")
+	public String logout(@PathVariable String uid, HttpSession session) {
+		session.removeAttribute("user");
 		return "redirect:/";
 	}
 	
