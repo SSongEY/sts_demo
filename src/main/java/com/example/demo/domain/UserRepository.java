@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 ///DAO 역할?
 public interface UserRepository extends JpaRepository<User, Long>{
 
+	User findByUid(String uid);
+	User findByEmail(String email); 
 
 }

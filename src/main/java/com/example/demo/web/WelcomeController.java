@@ -11,15 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 //@ComponentScan(basePackages = {"com.example.demo.controller"})
 public class WelcomeController {
 
-	@RequestMapping("/helloworld")
-	public String welcome(String name, int age, Model model) {
-//	public ModelAndView welcome(String name, int age, Model model) {
-//		ModelAndView mv = new ModelAndView("welcome");
-//		mv.addObject("name", name);
-//		return mv;
-		model.addAttribute("name", name);
-		model.addAttribute("age", age);
-		System.out.println("welcome "+name+", age is "+age);
-		return "welcome";
+	@RequestMapping("/")
+	public String welcome() {
+		return "index";
 	}
 }

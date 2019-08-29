@@ -3,6 +3,8 @@ package com.example.demo.web;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,10 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 
+	@GetMapping("/loginForm")
+	public String loginForm() {
+		return "/user/login";
+	}
 	@GetMapping("/form")
 	public String form() {
 		return "/user/form";
@@ -46,6 +52,17 @@ public class UserController {
 		return "redirect:/users";
 	}
 	
+	@PostMapping("/login")
+	public String login(String uid, String password, HttpSession session) {
+		System.out.println("in login");
+		User user = userRepository.findByUid(uid);
+		System.out.println(user);
+		if(user == null || !user.getPassword().equals(password)) 
+			return "redirect:/users/loginForm";
+		session.setAttribute("user", user);
+		System.out.println("loginSuccess");
+		return "redirect:/";
+	}
 	
 	/** 
 	 * form 안에 히든 타입의 input를 넣고 name=_method, value=put 으로 하면 put메소드와 메핑된다
@@ -56,7 +73,7 @@ public class UserController {
 		User user = userRepository.findById(num).get();
 		user.update(userInfo);
 		userRepository.save(user);
-		return"redirect:/users";
+		return "redirect:/users";
 	}
 //	@PostMapping("/{num}")
 //	public String updateUser(@PathVariable long num, User userInfo) {

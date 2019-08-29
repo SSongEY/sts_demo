@@ -12,18 +12,21 @@ public class User {
 	private long num;
 	
 	@Column(nullable=false, length=20)
-	private String id;
+	private String uid;
 	private String name;
 	private String email;
 	private String password;
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 	public void setName(String name) {
 		this.name = name;
 	}
 	public long getNum() {
 		return num;
-	}
-	public String getId() {
-		return id;
 	}
 	public String getName() {
 		return name;
@@ -37,9 +40,6 @@ public class User {
 	public void setNum(long num) {
 		this.num = num;
 	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -48,7 +48,7 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [num=" + num + ", id=" + id + ", name=" + name + ", email=" + email + ", password=" + password
+		return "User [num=" + num + ", uid=" + uid + ", name=" + name + ", email=" + email + ", password=" + password
 				+ "]";
 	}
 	public void update(User userInfo) {
