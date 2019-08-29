@@ -9,14 +9,36 @@ import javax.persistence.Id;
 public class User {
 	@Id
 	@GeneratedValue // 자동증가 (auto increments)
-	private long userId;
+	private long num;
 	
 	@Column(nullable=false, length=20)
+	private String id;
 	private String name;
 	private String email;
 	private String password;
 	public void setName(String name) {
 		this.name = name;
+	}
+	public long getNum() {
+		return num;
+	}
+	public String getId() {
+		return id;
+	}
+	public String getName() {
+		return name;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setNum(long num) {
+		this.num = num;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public void setEmail(String email) {
 		this.email = email;
@@ -26,7 +48,14 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [name=" + name + ", email=" + email + ", password=" + password + "]";
+		return "User [num=" + num + ", id=" + id + ", name=" + name + ", email=" + email + ", password=" + password
+				+ "]";
+	}
+	public void update(User userInfo) {
+		this.name = userInfo.name;
+		this.email = userInfo.email;
+		this.password = userInfo.password;
+		
 	}
 	
 	
