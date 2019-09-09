@@ -34,7 +34,14 @@ public class UserController {
 	}
 
 	@GetMapping("/{num}/form")
-	public String updateUserForm(@PathVariable Long num, Model model) {
+	public String updateUserForm(@PathVariable Long num, Model model, HttpSession session) {
+		if(!HttpSessionUtils.isLoginUser(session)) 
+			return "redirect:/users/loginForm";
+		
+		User sessionedUser = HttpSessionUtils.getUserFromSession(session);
+		if(!num.equals(sessionedUser.getNum()))
+			throw new IllegalStateException("You can't update the another user");
+		
 		Optional<User> user = userRepository.findById(num);
 		model.addAttribute("user", user.isPresent() ? user.get() : null);
 		return "/user/update_form";
@@ -55,22 +62,22 @@ public class UserController {
 	@PostMapping("/login")
 	public String login(String uid, String password, HttpSession session) {
 		User user = userRepository.findByUid(uid);
-		if(user == null || !user.getPassword().equals(password)) 
+		if(user == null || !user.isMatchPassword(password)) 
 			return "redirect:/users/loginForm";
-		session.setAttribute("user", user);
+		session.setAttribute(HttpSessionUtils.USER_SESSION_KEY, user);
 		return "redirect:/";
 	}
 	
 	@GetMapping("/logout/{uid}")
 	public String logout(@PathVariable String uid, HttpSession session) {
-		session.removeAttribute("user");
+		session.removeAttribute(HttpSessionUtils.USER_SESSION_KEY);
 		return "redirect:/";
 	}
 	
 	/** 
 	 * form 안에 히든 타입의 input를 넣고 name=_method, value=put 으로 하면 put메소드와 메핑된다
-	 * 
 	 */
+	///FIXME : 중복 코드 제거
 	@PutMapping("/{num}")
 	public String updateUser(@PathVariable long num, User userInfo) {
 		User user = userRepository.findById(num).get();

@@ -34,9 +34,9 @@ public class User {
 	public String getEmail() {
 		return email;
 	}
-	public String getPassword() {
-		return password;
-	}
+//	public String getPassword() {
+//		return password;
+//	}
 	public void setNum(long num) {
 		this.num = num;
 	}
@@ -46,6 +46,12 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public boolean isMatchPassword(String inPassword) {
+		if(inPassword == null || !inPassword.equals(this.password)) return false;
+		return true;
+	}
+	
 	@Override
 	public String toString() {
 		return "User [num=" + num + ", uid=" + uid + ", name=" + name + ", email=" + email + ", password=" + password
