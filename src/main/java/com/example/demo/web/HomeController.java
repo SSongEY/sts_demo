@@ -9,10 +9,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 //@ComponentScan(basePackages = {"com.example.demo.controller"})
-public class WelcomeController {
+public class HomeController {
 
-	@RequestMapping("/")
+	@GetMapping("")
 	public String welcome() {
-		return "/index";
+		return "index";
 	}
 }
